@@ -4,3 +4,6 @@ services:
     build: ./
     volumes:
       - ./app:/app
+    environment:
+      - DIR_IN=${DIR_IN}
+      - DIR_OUT=${DIR_OUT}
