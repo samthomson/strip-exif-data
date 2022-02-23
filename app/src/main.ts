@@ -15,10 +15,33 @@ const readAllJPEGsFromSeedDir = async (): Promise<string[]> => {
 	return paths
 }
 
+const stripImage = async (filePath: string): Promise<boolean> => {
+
+	try {
+		return true
+	} catch (err) {
+		return false
+	}
+}
+
+const stripImages = async (filePaths: string[]): Promise<void> => {
+	let successes = 0, failures = 0
+
+	for (let i = 0; i < filePaths.length; i++) {
+		const filePathToStrip = filePaths[i]
+		if (await stripImage(filePathToStrip)) {
+			successes++
+		} else {
+			failures++
+		}
+	}
+	console.log(`completed stripping ${filePaths.length} images. ${successes} were successful and ${failures} failed.`)
+}
+
 const main = async () => {
 	checkForEnvVarsOrExit()
 	const paths = await readAllJPEGsFromSeedDir()
-	console.log(paths)
+	stripImages([paths[0]])
 }
 
 main()
