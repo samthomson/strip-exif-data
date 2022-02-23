@@ -9,15 +9,15 @@ const checkForEnvVarsOrExit = (): void => {
 	}
 }
 
-const readAllFilesFromSeedDir = async (): Promise<string[]> => {
-	const paths = await fs.readdirSync(path.resolve('/dir_in'))
+const readAllJPEGsFromSeedDir = async (): Promise<string[]> => {
+	const paths = await fs.readdirSync(path.resolve('/dir_in')).filter(filePath => path.extname(filePath).toLowerCase() === '.jpg')
 
 	return paths
 }
 
 const main = async () => {
 	checkForEnvVarsOrExit()
-	const paths = await readAllFilesFromSeedDir()
+	const paths = await readAllJPEGsFromSeedDir()
 	console.log(paths)
 }
 
