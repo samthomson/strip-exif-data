@@ -52,7 +52,7 @@ const stripImages = async (filePaths: string[]): Promise<void> => {
 const main = async () => {
 	checkForEnvVarsOrExit()
 	const paths = await readAllJPEGsFromSeedDir()
-	stripImages([paths[0]])
+	stripImages(paths)
 }
 
 main()
