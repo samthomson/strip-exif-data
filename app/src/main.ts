@@ -1,4 +1,5 @@
-import * as Module from './module'
+import * as fs from 'fs'
+import * as path from 'path'
 
 const checkForEnvVarsOrExit = (): void => {
 	const { DIR_IN, DIR_OUT } = process.env
@@ -8,9 +9,16 @@ const checkForEnvVarsOrExit = (): void => {
 	}
 }
 
-const main = () => {
+const readAllFilesFromSeedDir = async (): Promise<string[]> => {
+	const paths = await fs.readdirSync(path.resolve('/dir_in'))
+
+	return paths
+}
+
+const main = async () => {
 	checkForEnvVarsOrExit()
-	console.log('made it past initial var check')
+	const paths = await readAllFilesFromSeedDir()
+	console.log(paths)
 }
 
 main()
