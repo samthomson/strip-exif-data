@@ -1,5 +1,6 @@
 import * as fs from 'fs'
 import * as path from 'path'
+import * as sharp from 'sharp'
 
 const checkForEnvVarsOrExit = (): void => {
 	const { DIR_IN, DIR_OUT } = process.env
@@ -17,9 +18,19 @@ const readAllJPEGsFromSeedDir = async (): Promise<string[]> => {
 
 const stripImage = async (filePath: string): Promise<boolean> => {
 
+	const input = `/dir_in/${filePath}`
+	const output = `/dir_out/${filePath}`
+
 	try {
+		await sharp(input)
+			.rotate()
+            .jpeg({
+                quality: 100,
+            })
+			.toFile(output)
 		return true
 	} catch (err) {
+		console.error(err)
 		return false
 	}
 }
